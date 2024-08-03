@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuddhiAI</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color: #222222;
+        }
+        h1{
+            text-align: center;
+            color: rgb(255, 255, 255);
+
+        }
+        .form-input{
+            text-align: center;
+            
+            color: white;
+            align-items: center;
+            padding-left: 50px;
+            margin-top: 360px;
+            border-radius: 10px;
+
+        }
+        .input-text{
+            border-radius: 5px;
+            border-style: solid;
+            border-color: white;
+            width: 450px;
+        }
+        .button{
+            color: rgb(36, 54, 48);
+            border-radius: 10px;
+            transition: background-color 1s;
+        }
+        .button:hover{
+            background-color: rgb(155, 155, 206);
+        }
+    </style>
+    <h1>Welcome to BudddhiAI</h1>
+    <div class="container">
+    <form class="form-input" action="http://127.0.0.1:5000/query-response" method="post">
+        <input class="input-text" name="query" type="text" placeholder="enter the query" >
+        <button class="button" type="submit">submit</button>
+    </form>
+    </div>
+    
+</body>
+</html>
