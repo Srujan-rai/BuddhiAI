@@ -74,8 +74,12 @@
             
             const formData = new FormData(this);
             fetch('https://4xpcw8mm-5000.inc1.devtunnels.ms/query-responseo', {
-                method: 'POST',
-                body: formData
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ your: 'data' })
             })
             .then(response => {
                 console.log('Response Status:', response.status); // Log response status
