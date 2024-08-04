@@ -21,7 +21,8 @@ chat_session = model.start_chat(history=[])
 
 app=Flask(__name__)
 
-CORS(app)
+CORS(app,resources={r"/*": {"origins": "*"}})
+
 def gemini_api(query):
     response = chat_session.send_message(f"{query}")
     #print(response)

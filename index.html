@@ -1,58 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BuddhiAI</title>
-  </head>
-  <body>
     <style>
-      body {
-        background-color: #222222;
-      }
-      h1 {
-        text-align: center;
-        color: rgb(255, 255, 255);
-      }
-      .form-input {
-        text-align: center;
-
-        color: white;
-        align-items: center;
-        padding-left: 50px;
-        margin-top: 360px;
-        border-radius: 10px;
-      }
-      .input-text {
-        border-radius: 5px;
-        border-style: solid;
-        border-color: white;
-        width: 450px;
-      }
-      .button {
-        color: rgb(36, 54, 48);
-        border-radius: 10px;
-        transition: background-color 1s;
-      }
-      .button:hover {
-        background-color: rgb(155, 155, 206);
-      }
+        body {
+            background-color: #222222;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: rgb(255, 255, 255);
+        }
+        .form-input {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        .input-text {
+            border-radius: 5px;
+            border: solid 1px white;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .button {
+            color: rgb(36, 54, 48);
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: rgb(155, 155, 206);
+        }
+        .response-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #333333;
+            max-width: 800px;
+            margin: 20px auto;
+            color: white;
+        }
     </style>
-    <h1>Welcome to BudddhiAI</h1>
-    <div class="container">
-      <form
-        class="form-input"
-        action="http://127.0.0.1:5000/query-response"
-        method="post"
-      >
-        <input
-          class="input-text"
-          name="query"
-          type="text"
-          placeholder="enter the query"
-        />
-        <button class="button" type="submit">submit</button>
-      </form>
+</head>
+<body>
+    <h1>Welcome to BuddhiAI</h1>
+    <div class="form-input">
+        <form id="queryForm">
+            <input
+                class="input-text"
+                name="query"
+                type="text"
+                placeholder="Enter your query"
+            />
+            <button class="button" type="submit">Submit</button>
+        </form>
     </div>
-  </body>
+    <div id="responseContainer" class="response-container" style="display:none;">
+        <h2>Response:</h2>
+        <p id="responseText"></p>
+    </div>
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            fetch('https://5000-cs-1078162591750-default.cs-asia-southeast1-bool.cloudshell.dev/query-responseo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response Status:', response.status); // Log response status
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response Data:', data); // Log response data
+                document.getElementById('responseText').textContent = data.response;
+                document.getElementById('responseContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any errors
+            });
+        });
+    </script>
+</body>
 </html>
