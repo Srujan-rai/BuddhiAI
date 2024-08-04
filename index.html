@@ -69,31 +69,39 @@
         <p id="responseText"></p>
     </div>
     <script>
-        document.getElementById('queryForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(this);
-            fetch('https://4xpcw8mm-5000.inc1.devtunnels.ms/query-response', {
-              method: 'POST',
-              mode: 'no-cors',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ your: 'data' })
-            })
-            .then(response => {
-                console.log('Response Status:', response.status); // Log response status
-                return response.json();
-            })
-            .then(data => {
-                console.log('Response Data:', data); // Log response data
-                document.getElementById('responseText').textContent = data.response;
-                document.getElementById('responseContainer').style.display = 'block';
-            })
-            .catch(error => {
-                console.error('Error:', error); // Log any errors
-            });
+      document.getElementById('queryForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        const formData = new FormData(this);
+        const query = formData.get('query');
+    
+        fetch('https://4xpcw8mm-5000.inc1.devtunnels.ms/query-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add authentication headers if needed
+                // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+            },
+            body: JSON.stringify({ query: query })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json(); // Assuming response is JSON
+        })
+        .then(data => {
+            console.log('Response Data:', data); // Log response data
+            document.getElementById('responseText').textContent = data.response || 'No response data';
+            document.getElementById('responseContainer').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error:', error); // Log any errors
+            document.getElementById('responseText').textContent = 'An error occurred';
+            document.getElementById('responseContainer').style.display = 'block';
         });
+    });
+    
     </script>
 </body>
 </html>
