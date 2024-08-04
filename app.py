@@ -50,8 +50,10 @@ def main():
 @app.route('/query-response', methods=['POST', 'GET'])
 def home():
     if request.method == 'POST':
-        query = request.form.get('query', '')
-        #print(query)
+        query=request.json
+        query = query.get('query', '')
+        print(query)
+        #query='army'
         if query:
             response = gemini_api(query)
             print(response)

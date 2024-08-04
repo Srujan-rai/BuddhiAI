@@ -35,10 +35,12 @@
             border: none;
             background-color: white;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s  opacity 0.3s;
+            margin-top: 10px;
         }
         .button:hover {
             background-color: rgb(155, 155, 206);
+            opacity: 0.9;
         }
         .response-container {
             margin-top: 20px;
@@ -71,7 +73,7 @@
     <script>
       document.getElementById('queryForm').addEventListener('submit', function(event) {
         event.preventDefault();
-    
+        
         const formData = new FormData(this);
         const query = formData.get('query');
     
