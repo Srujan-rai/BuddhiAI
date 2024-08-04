@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BuddhiAI</title>
+    <style>
+        body {
+            background-color: #222222;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: rgb(255, 255, 255);
+        }
+        .form-input {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        .input-text {
+            border-radius: 5px;
+            border: solid 1px white;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .button {
+            color: rgb(36, 54, 48);
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: rgb(155, 155, 206);
+        }
+        .response-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #333333;
+            max-width: 800px;
+            margin: 20px auto;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to BuddhiAI</h1>
+    <div class="form-input">
+        <form id="queryForm">
+            <input
+                class="input-text"
+                name="query"
+                type="text"
+                placeholder="Enter your query"
+            />
+            <button class="button" type="submit">Submit</button>
+        </form>
+    </div>
+    <div id="responseContainer" class="response-container" style="display:none;">
+        <h2>Response:</h2>
+        <p id="responseText"></p>
+    </div>
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            fetch('http://127.0.0.1:5000/query-response', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response Status:', response.status); // Log response status
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response Data:', data); // Log response data
+                document.getElementById('responseText').textContent = data.response;
+                document.getElementById('responseContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any errors
+            });
+        });
+    </script>
+</body>
+</html>
