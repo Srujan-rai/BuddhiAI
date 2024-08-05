@@ -103,7 +103,17 @@
             document.getElementById('responseContainer').style.display = 'block';
         });
     });
-    
+
+
+    function pingserver(){
+        fetch("https://buddhiai.onrender.com/query-response")
+        .then(response=>response.text)
+        .then(data=>console.log('ping sucessful'))
+        .catch(error=>console.error('error',error))
+
+    }
+    setInterval(pingserver,300000);
+    window.onload=pingserver;    
     </script>
 </body>
 </html>
