@@ -51,6 +51,28 @@
             margin: 20px auto;
             color: white;
         }
+        .spinner-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-left: 8px solid white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +88,10 @@
             <button class="button" type="submit">Submit</button>
         </form>
     </div>
+    <div id="spinnerContainer" class="spinner-container" style="display:none;">
+        <div class="spinner"></div>
+        <div class="loading-text">Good things takes time!!, please wait...</div>
+    </div>
     <div id="responseContainer" class="response-container" style="display:none;">
         <h2>Response:</h2>
         <p id="responseText"></p>
@@ -76,6 +102,10 @@
         
         const formData = new FormData(this);
         const query = formData.get('query');
+        
+        // Show spinner and hide response container
+        document.getElementById('spinnerContainer').style.display = 'block';
+        document.getElementById('responseContainer').style.display = 'none';
     
         fetch('https://buddhiai.onrender.com/query-response', {
             method: 'POST',
@@ -101,19 +131,21 @@
             console.error('Error:', error); // Log any errors
             document.getElementById('responseText').textContent = 'An error occurred';
             document.getElementById('responseContainer').style.display = 'block';
+        })
+        .finally(() => {
+            // Hide spinner after response
+            document.getElementById('spinnerContainer').style.display = 'none';
         });
     });
-
 
     function pingserver(){
         fetch("https://buddhiai.onrender.com/query-response")
         .then(response=>response.text)
-        .then(data=>console.log('ping sucessful'))
+        .then(data=>console.log('ping successful'))
         .catch(error=>console.error('error',error))
-
     }
     setInterval(pingserver,300000);
-    window.onload=pingserver;    
+    window.onload=pingserver;
     </script>
 </body>
 </html>
