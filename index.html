@@ -121,7 +121,7 @@
             return response.json();
         })
         .then(data => {
-            console.log('Response Data:', data); // Log response data
+            console.log('Response Data:', data); 
             document.getElementById('responseText').textContent = data.response || 'No response data';
             document.getElementById('responseContainer').style.display = 'block';
         })
