@@ -2,7 +2,7 @@ from flask import Flask,render_template,redirect,url_for,request,Response,jsonif
 import google.generativeai as genai
 from flask_cors import CORS
 
-API_KEY = 'AIzaSyDqDhf-M7C97tdCSE4yEQE0fbQyqfDjJBQ'
+API_KEY = os.getenv('API KEY')
 
 genai.configure(api_key=API_KEY)
 generation_config = {
